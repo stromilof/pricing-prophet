@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pricing Prophet — AI Pricing Auditor</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:#f8fafc;color:#0f172a;-webkit-font-smoothing:antialiased}
+.min-h-screen{min-height:100vh}.bg-slate-50{background:#f8fafc}.bg-white{background:#fff}
+.bg-slate-900{background:#0f172a}.bg-slate-800{background:#1e293b}.bg-slate-700{background:#334155}
+.bg-slate-300{background:#cbd5e1}.bg-red-50{background:#fef2f2}.bg-amber-50{background:#fffbeb}
+.bg-amber-100{background:#fef3c7}.bg-primary-100{background:#e0f2fe}.bg-green-100{background:#dcfce7}
+.bg-slate-100{background:#f1f5f9}.bg-slate-50{background:#f8fafc}
+.text-white{color:#fff}.text-slate-900{color:#0f172a}.text-slate-800{color:#1e293b}
+.text-slate-700{color:#334155}.text-slate-600{color:#475569}.text-slate-500{color:#64748b}
+.text-slate-400{color:#94a3b8}.text-primary-600{color:#0284c7}.text-primary-400{color:#38bdf8}
+.text-amber-600{color:#d97706}.text-amber-700{color:#b45309}.text-red-800{color:#991b1b}
+.text-red-700{color:#b91c1c}.text-red-600{color:#dc2626}.text-green-600{color:#16a34a}
+.text-blue-500{color:#3b82f6}.text-amber-400{color:#fbbf24}
+.border{border:1px solid #e2e8f0}.border-b{border-bottom:1px solid #e2e8f0}
+.border-t-4{border-top:4px solid}.border-primary-500{border-color:#0ea5e9}
+.border-slate-200{border-color:#e2e8f0}.border-slate-300{border-color:#cbd5e1}
+.border-amber-200{border-color:#fde68a}.border-amber-400{border-color:#fbbf24}
+.border-red-500{border-color:#ef4444}.border-l-4{border-left:4px solid}
+.rounded{border-radius:4px}.rounded-lg{border-radius:8px}.rounded-xl{border-radius:12px}
+.rounded-full{border-radius:9999px}.rounded-r-lg{border-radius:0 8px 8px 0}
+.shadow-sm{box-shadow:0 1px 2px rgba(0,0,0,.05)}.shadow{box-shadow:0 1px 3px rgba(0,0,0,.1),0 1px 2px rgba(0,0,0,.06)}
+.shadow-md{box-shadow:0 4px 6px -1px rgba(0,0,0,.1),0 2px 4px -1px rgba(0,0,0,.06)}
+.shadow-lg{box-shadow:0 10px 15px -3px rgba(0,0,0,.1),0 4px 6px -2px rgba(0,0,0,.05)}
+.shadow-xl{box-shadow:0 20px 25px -5px rgba(0,0,0,.1),0 10px 10px -5px rgba(0,0,0,.04)}
+.p-1{padding:.25rem}.p-1\.5{padding:.375rem}.p-4{padding:1rem}.p-6{padding:1.5rem}
+.p-8{padding:2rem}.px-4{padding-left:1rem;padding-right:1rem}.py-3{padding-top:.75rem;padding-bottom:.75rem}
+.py-4{padding-top:1rem;padding-bottom:1rem}.py-2{padding-top:.5rem;padding-bottom:.5rem}
+.py-2\.5{padding-top:.625rem;padding-bottom:.625rem}.py-10{padding-top:2.5rem;padding-bottom:2.5rem}
+.py-12{padding-top:3rem;padding-bottom:3rem}.px-6{padding-left:1.5rem;padding-right:1.5rem}
+.py-0\.5{padding-top:.125rem;padding-bottom:.125rem}.pl-10{padding-left:2.5rem}.pr-4{padding-right:1rem}
+.pt-3{padding-top:.75rem}.mt-3{margin-top:.75rem}.mt-0\.5{margin-top:.125rem}
+.mb-1{margin-bottom:.25rem}.mb-2{margin-bottom:.5rem}.mb-3{margin-bottom:.75rem}
+.mb-4{margin-bottom:1rem}.mb-5{margin-bottom:1.25rem}.mb-6{margin-bottom:1.5rem}
+.mb-8{margin-bottom:2rem}.mb-12{margin-bottom:3rem}.mb-14{margin-bottom:3.5rem}
+.mt-1{margin-top:.25rem}.mt-14{margin-top:3.5rem}.mx-auto{margin-left:auto;margin-right:auto}
+.ml-2{margin-left:.5rem}.gap-2{gap:.5rem}.gap-3{gap:.75rem}.gap-4{gap:1rem}.gap-8{gap:2rem}
+.gap-5{gap:1.25rem}.gap-6{gap:1.5rem}
+.flex{display:flex}.grid{display:grid}.block{display:block}.inline{display:inline}
+.inline-block{display:inline-block}.hidden{display:none}.items-center{align-items:center}
+.items-start{align-items:flex-start}.justify-between{justify-content:space-between}
+.justify-center{justify-content:center}.flex-col{flex-direction:column}
+.flex-1{flex:1}.flex-shrink-0{flex-shrink:0}.flex-wrap{flex-wrap:wrap}
+.w-full{width:100%}.w-5{width:1.25rem}.w-6{width:1.5rem}.w-4{width:1rem}.w-3{width:.75rem}
+.w-12{width:3rem}.w-11{width:2.75rem}.w-1\.5{width:.375rem}.h-5{height:1.25rem}
+.h-6{height:1.5rem}.h-4{height:1rem}.h-3{height:.75rem}.h-12{height:3rem}.h-11{height:2.75rem}
+.h-16{height:4rem}.h-1\.5{height:.375rem}.h-96{min-height:24rem}
+.max-w-7xl{max-width:80rem}.max-w-2xl{max-width:42rem}.max-w-xl{max-width:36rem}
+.max-w-3xl{max-width:48rem}.max-w-xs{max-width:20rem}
+.text-xs{font-size:.75rem}.text-sm{font-size:.875rem}.text-base{font-size:1rem}
+.text-lg{font-size:1.125rem}.text-xl{font-size:1.25rem}.text-2xl{font-size:1.5rem}
+.text-3xl{font-size:1.875rem}.text-4xl{font-size:2.25rem}
+.font-medium{font-weight:500}.font-semibold{font-weight:600}.font-bold{font-weight:700}
+.font-extrabold{font-weight:800}.font-mono{font-family:monospace}
+.tracking-tight{letter-spacing:-.025em}.tracking-wider{letter-spacing:.05em}
+.leading-tight{line-height:1.25}.uppercase{text-transform:uppercase}
+.text-center{text-align:center}.break-all{word-break:break-all}
+.italic{font-style:italic}.underline{text-decoration:underline}
+.pointer-events-none{pointer-events:none}.cursor-not-allowed{cursor:not-allowed}
+.cursor-pointer{cursor:pointer}.appearance-none{appearance:none}
+.overflow-hidden{overflow:hidden}.relative{position:relative}.absolute{position:absolute}
+.sticky{position:sticky}.top-0{top:0}.z-10{z-index:10}.inset-0{inset:0}
+.inset-y-0{top:0;bottom:0}.left-0{left:0}.right-0{right:0}.pl-3{padding-left:.75rem}
+.space-y-2>*+*{margin-top:.5rem}.space-y-3>*+*{margin-top:.75rem}
+.space-y-4>*+*{margin-top:1rem}.space-y-5>*+*{margin-top:1.25rem}
+.space-y-6>*+*{margin-top:1.5rem}.space-x-2>*+*{margin-left:.5rem}
+.opacity-40{opacity:.4}.backdrop-blur{backdrop-filter:blur(4px)}
+.transition-all{transition:all .2s}.transition-colors{transition:color .2s,background .2s}
+.transition-transform{transition:transform .2s}
+.translate-x-5{transform:translateX(1.25rem)}
+.hover\:bg-slate-600:hover{background:#475569}.hover\:bg-slate-800:hover{background:#1e293b}
+.hover\:bg-primary-700:hover{background:#0369a1}.hover\:shadow-lg:hover{box-shadow:0 10px 15px -3px rgba(0,0,0,.1)}
+.hover\:underline:hover{text-decoration:underline}
+.outline-none{outline:none}
+.lg\:col-span-1{}.lg\:col-span-3{}
+@media(min-width:1024px){
+  .lg\:grid-cols-4{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .lg\:col-span-1{grid-column:span 1/span 1}
+  .lg\:col-span-3{grid-column:span 3/span 3}
+  .lg\:grid{display:grid}
+  .md\:p-8{padding:2rem}.md\:p-12{padding:3rem}
+  .md\:flex-row{flex-direction:row}.md\:items-center{align-items:center}
+  .md\:text-3xl{font-size:1.875rem}.md\:text-5xl{font-size:3rem}.md\:block{display:block}
+  .md\:prose{max-width:none}
+}
+@media(min-width:768px){
+  .md\:grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .md\:grid-cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .md\:p-8{padding:2rem}.md\:p-12{padding:3rem}
+  .md\:flex-row{flex-direction:row}.md\:items-center{align-items:center}
+  .md\:text-3xl{font-size:1.875rem}.md\:text-5xl{font-size:3rem}
+  .md\:block{display:block}.md\:inline{display:inline}
+}
+@media(min-width:640px){.sm\:block{display:block}.sm\:px-6{padding-left:1.5rem;padding-right:1.5rem}}
+/* Focus states */
+input:focus,select:focus{outline:2px solid #0ea5e9;outline-offset:0;border-color:#0ea5e9;background:#fff}
+/* Disabled */
+button:disabled{opacity:.6;cursor:not-allowed}
+</style>
+<script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@18.3.1",
+    "react-dom/client": "https://esm.sh/react-dom@18.3.1/client",
+    "@google/genai": "https://esm.sh/@google/genai@1.3.0"
+  }
+}
+</script>
+<style>
+body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
+.animate-spin { animation: spin 1s linear infinite; }
+@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+.animate-fade-in { animation: fadeIn 0.4s ease-out; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+
+/* Markdown styles */
+.md h1 { font-size:1.5rem;font-weight:700;margin:1.5rem 0 1rem;color:#0f172a }
+.md h2 { font-size:1.2rem;font-weight:700;margin:2.5rem 0 .75rem;color:#0f172a;display:flex;align-items:center;gap:.5rem;padding-bottom:.5rem;border-bottom:1px solid #e2e8f0 }
+.md h2::before { content:'';display:inline-block;width:4px;height:1.2rem;background:#0ea5e9;border-radius:2px;flex-shrink:0 }
+.md h3 { font-size:1rem;font-weight:600;margin:1.25rem 0 .5rem;color:#1e293b }
+.md p { margin-bottom:.9rem;line-height:1.7;color:#334155 }
+.md ul { list-style:disc;padding-left:1.5rem;margin-bottom:1rem;color:#334155 }
+.md ol { list-style:decimal;padding-left:1.5rem;margin-bottom:1rem;color:#334155 }
+.md li { margin-bottom:.35rem;line-height:1.6 }
+.md strong { font-weight:600;color:#0f172a }
+.md em { font-style:italic;color:#475569 }
+.md blockquote { border-left:3px solid #0ea5e9;padding:.75rem 1rem;background:#f0f9ff;border-radius:0 6px 6px 0;margin:1rem 0;color:#334155;font-style:italic }
+.md code { background:#f1f5f9;color:#0f172a;padding:.1rem .4rem;border-radius:4px;font-size:.85em;font-family:monospace }
+</style>
+</head>
+<body>
+
+<div id="root"></div>
+
+<script type="module">
+import React, { useState, useCallback } from 'react';
+import { createRoot } from 'react-dom/client';
+import { GoogleGenAI } from '@google/genai';
+
+// ─── API KEY ──────────────────────────────────────────────
+// To update your API key:
+// 1. Go to https://aistudio.google.com/apikey → delete old key → create new one
+// 2. Replace the string below with your new key
+// 3. Save and re-upload index.html to your GitHub repo
+const API_KEY = 'YOUR_GEMINI_API_KEY_HERE';
+
+// ─── SIMPLE MARKDOWN RENDERER ────────────────────────────
+function renderMarkdown(md) {
+  let html = md
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/^### (.+)$/gm,'<h3>$1</h3>')
+    .replace(/^## (.+)$/gm,'<h2>$1</h2>')
+    .replace(/^# (.+)$/gm,'<h1>$1</h1>')
+    .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
+    .replace(/\*(.+?)\*/g,'<em>$1</em>')
+    .replace(/`(.+?)`/g,'<code>$1</code>')
+    .replace(/^&gt; (.+)$/gm,'<blockquote>$1</blockquote>')
+    .replace(/^\* (.+)$/gm,'<li>$1</li>')
+    .replace(/^- (.+)$/gm,'<li>$1</li>')
+    .replace(/^\d+\. (.+)$/gm,'<li>$1</li>');
+
+  // Wrap consecutive <li> in <ul>
+  html = html.replace(/(<li>.*<\/li>\n?)+/g, m => `<ul>${m}</ul>`);
+
+  // Wrap remaining lines in <p>
+  html = html.split('\n').map(line => {
+    if (line.match(/^<(h[123]|ul|ol|li|blockquote)/)) return line;
+    if (line.trim() === '') return '';
+    return `<p>${line}</p>`;
+  }).join('\n');
+
+  return html;
+}
+
+// ─── ICONS (inline SVG) ──────────────────────────────────
+const Icon = ({ path, className = "w-5 h-5" }) => React.createElement('svg', {
+  className, fill:'none', viewBox:'0 0 24 24', stroke:'currentColor', strokeWidth:2
+}, React.createElement('path', { strokeLinecap:'round', strokeLinejoin:'round', d:path }));
+
+const icons = {
+  dollar: "M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z",
+  loader: "M12 2v4m0 12v4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.48-8.48l2.83-2.83",
+  arrow: "M13 7l5 5m0 0l-5 5m5-5H6",
+  refresh: "M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15",
+  globe: "M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z",
+  shield: "M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z",
+  lock: "M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z",
+  sparkles: "M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z",
+  zap: "M13 10V3L4 14h7v7l9-11h-7z",
+  link: "M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1",
+  flask: "M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z",
+  target: "M15 12a3 3 0 11-6 0 3 3 0 016 0z M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z",
+  trend: "M13 7h8m0 0v8m0-8l-8 8-4-4-6 6",
+  alert: "M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z",
+  external: "M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14",
+};
+
+// ─── API CALL ─────────────────────────────────────────────
+async function generateAudit(data) {
+  const ai = new GoogleGenAI({ apiKey: API_KEY });
+
+  const validCompetitors = data.competitorUrls.filter(u => u.length > 5);
+  const hasCompetitors = validCompetitors.length > 0;
+
+  const systemInstruction = `
+    You are an expert Pricing Consultant known for ruthless efficiency and clarity.
+    Your mandate is to audit a B2B SaaS pricing page based ONLY on the visible content of the specific URL provided, AND any competitor URLs explicitly provided.
+    
+    CRITICAL RULE: "TABULA RASA" (BLANK SLATE)
+    - You must pretend you have NO prior knowledge of the company, brand, or its products.
+    - If a feature or price is not explicitly mentioned on the provided pages, it DOES NOT EXIST.
+    - Do not fill in gaps with your training data.
+  `;
+
+  const prompt = `
+    Analyze the pricing page for this company: ${data.url}.
+    
+    Context:
+    - Target Customer: ${data.targetCustomer}
+    - Primary Objective: ${data.objective}
+    ${hasCompetitors ? `- Competitor Comparison URLs: ${validCompetitors.join(', ')}` : ''}
+
+    Task:
+    Perform a high-impact pricing and packaging audit based EXCLUSIVELY on the content found at the provided URL(s).
+
+    WRITING RULES (STRICT ADHERENCE REQUIRED):
+    - **Brevity**: Omit needless words. Keep paragraphs under 3 sentences.
+    - **Scannability**: Use bullet points for >70% of the content. Use **bold** to highlight key insights within sentences.
+    - **Active Voice**: Use strong verbs. Be direct.
+    - **Judgment**: Every section must contain an opinion, not just a description.
+
+    Required Output Sections (Use Markdown H2 headers):
+    
+    ## 1. Executive Verdict
+    * Provide a 2-sentence "Buy/Sell/Hold" style judgment on their current pricing effectiveness.
+    * Give it a letter grade (A-F) based on clarity and monetization power.
+
+    ## 2. Critical Red Flags (Revenue Leaks)
+    * List the top 3-4 specific issues that are likely losing them money right now.
+    * Be specific (e.g., "Hidden pricing scares away SMBs").
+
+    ## 3. Structural Audit (The Mechanics)
+    * **Value Metric**: Is it aligned with usage? (Verdict: Strong/Weak)
+    * **Packaging**: Is the distinction between tiers logical? (Verdict: Strong/Weak)
+    * **Upsell Path**: Is the path to higher NRR clear? (Verdict: Strong/Weak)
+
+    ${hasCompetitors ? '## 4. Competitor Battlecard\n* Direct comparison vs provided URLs. Who wins on value? Who wins on clarity? Use a "Winner/Loser" format.' : ''}
+    ${data.includeExperiment ? '## 5. The Growth Experiment\n* **Hypothesis**: "If we..."\n* **Test Design**: How to validate it.\n* **Impact**: Expected lift.' : ''}
+    
+    ## ${hasCompetitors || data.includeExperiment ? '6' : '4'}. Action Plan (3 Steps)
+    * Three prioritized, high-impact changes to make immediately.
+    * Start each bullet with a verb.
+
+    Constraint:
+    - Use Google Search ONLY to retrieve the content of this specific URL${hasCompetitors ? ' AND the competitor URLs' : ''}.
+    - DO NOT look for other external reviews or news.
+    - Your analysis must be grounded solely in what is presented on the page(s) provided.
+  `;
+
+  const response = await ai.models.generateContent({
+    model: 'gemini-2.5-pro-preview-05-06',
+    contents: prompt,
+    config: {
+      systemInstruction,
+      tools: [{ googleSearch: {} }],
+      thinkingConfig: { thinkingBudget: 8192 },
+    }
+  });
+
+  const markdown = response.text || "No analysis generated.";
+  const groundingChunks = response.candidates?.[0]?.groundingMetadata?.groundingChunks || [];
+  const sourceUrls = [...new Set(groundingChunks.map(c => c.web?.uri).filter(Boolean))];
+
+  return { markdown, sourceUrls };
+}
+
+// ─── APP ──────────────────────────────────────────────────
+function App() {
+  const [formData, setFormData] = useState({
+    url: '',
+    targetCustomer: 'Small Businesses',
+    objective: 'Improve Conversion',
+    competitorUrls: ['', '', ''],
+    includeExperiment: false,
+  });
+  const [result, setResult] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [isProUnlocked, setIsProUnlocked] = useState(false);
+
+  const handleSubmit = async () => {
+    if (!formData.url) return;
+    setIsLoading(true);
+    setError(null);
+    try {
+      const data = await generateAudit(formData);
+      setResult(data);
+    } catch (err) {
+      setError(err.message || 'An unexpected error occurred.');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleReset = () => { setResult(null); setError(null); };
+
+  const update = (key, val) => setFormData(p => ({ ...p, [key]: val }));
+  const updateCompetitor = (i, val) => {
+    const arr = [...formData.competitorUrls];
+    arr[i] = val;
+    setFormData(p => ({ ...p, competitorUrls: arr }));
+  };
+
+  if (result) return React.createElement(Report, { result, formData, onReset: handleReset });
+
+  return React.createElement('div', { className: 'min-h-screen bg-slate-50' },
+    // NAV
+    React.createElement('header', { className: 'bg-white border-b border-slate-200 sticky top-0 z-10' },
+      React.createElement('div', { className: 'max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between' },
+        React.createElement('div', { className: 'flex items-center gap-2' },
+          React.createElement('div', { className: 'bg-slate-900 p-1.5 rounded text-white' },
+            React.createElement(Icon, { path: icons.dollar, className: 'w-5 h-5' })
+          ),
+          React.createElement('span', { className: 'text-lg font-bold tracking-tight text-slate-900' },
+            'Pricing', React.createElement('span', { className: 'text-primary-600' }, 'Prophet')
+          )
+        ),
+        React.createElement('span', { className: 'text-xs text-slate-400 font-mono hidden sm:block' }, 'AI Pricing Auditor · by Stromi Lof')
+      )
+    ),
+
+    // MAIN
+    React.createElement('main', { className: 'max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12' },
+      // HERO TEXT
+      React.createElement('div', { className: 'text-center mb-12 animate-fade-in' },
+        React.createElement('h1', { className: 'text-4xl md:text-5xl font-extrabold text-slate-900 mb-4 tracking-tight leading-tight' },
+          'Unlock revenue with', React.createElement('br'),
+          React.createElement('span', { className: 'text-primary-600' }, 'monetisation insights')
+        ),
+        React.createElement('p', { className: 'text-lg text-slate-500 max-w-xl mx-auto' },
+          'Get an opinionated pricing strategy audit, packaging critique, and high-impact recommendations — powered by AI and live web data.'
+        )
+      ),
+
+      // ERROR
+      error && React.createElement('div', { className: 'bg-red-50 border-l-4 border-red-500 p-4 mb-8 rounded-r-lg flex items-start gap-3' },
+        React.createElement(Icon, { path: icons.alert, className: 'w-5 h-5 text-red-600 flex-shrink-0 mt-0.5' }),
+        React.createElement('div', null,
+          React.createElement('p', { className: 'font-semibold text-red-800' }, 'Audit Generation Failed'),
+          React.createElement('p', { className: 'text-sm text-red-700 mt-1' }, error)
+        )
+      ),
+
+      // FORM
+      React.createElement('div', { className: 'bg-white rounded-xl shadow-lg border border-slate-200 p-8 max-w-2xl mx-auto animate-fade-in' },
+        React.createElement('div', { className: 'flex items-center gap-3 mb-6' },
+          React.createElement('div', { className: 'p-3 bg-primary-100 rounded-lg' },
+            React.createElement(Icon, { path: icons.target, className: 'w-6 h-6 text-primary-600' })
+          ),
+          React.createElement('div', null,
+            React.createElement('h2', { className: 'text-xl font-bold text-slate-900' }, 'New Audit'),
+            React.createElement('p', { className: 'text-sm text-slate-500' }, 'Enter pricing details for analysis')
+          )
+        ),
+
+        // URL
+        React.createElement('div', { className: 'mb-5' },
+          React.createElement('label', { className: 'block text-sm font-semibold text-slate-700 mb-2' }, 'Pricing Page URL'),
+          React.createElement('input', {
+            type: 'text', value: formData.url,
+            onChange: e => update('url', e.target.value),
+            placeholder: 'e.g., https://stripe.com/pricing',
+            className: 'w-full px-4 py-3 rounded-lg border border-slate-300 bg-slate-50 text-slate-900 placeholder-slate-400 focus:bg-white focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all outline-none'
+          })
+        ),
+
+        // SELECTS
+        React.createElement('div', { className: 'grid grid-cols-1 md:grid-cols-2 gap-5 mb-5' },
+          React.createElement('div', null,
+            React.createElement('label', { className: 'block text-sm font-semibold text-slate-700 mb-2' }, 'Target Customer'),
+            React.createElement('select', {
+              value: formData.targetCustomer,
+              onChange: e => update('targetCustomer', e.target.value),
+              className: 'w-full px-4 py-3 rounded-lg border border-slate-300 bg-slate-50 text-slate-900 focus:ring-2 focus:ring-primary-500 outline-none appearance-none'
+            },
+              ['B2C','Freelancers','Small Businesses','Enterprise'].map(v =>
+                React.createElement('option', { key: v, value: v }, v)
+              )
+            )
+          ),
+          React.createElement('div', null,
+            React.createElement('label', { className: 'block text-sm font-semibold text-slate-700 mb-2' }, 'Primary Objective'),
+            React.createElement('select', {
+              value: formData.objective,
+              onChange: e => update('objective', e.target.value),
+              className: 'w-full px-4 py-3 rounded-lg border border-slate-300 bg-slate-50 text-slate-900 focus:ring-2 focus:ring-primary-500 outline-none appearance-none'
+            },
+              ['Increase Revenue','Improve Conversion','Improve Upsell'].map(v =>
+                React.createElement('option', { key: v, value: v }, v)
+              )
+            )
+          )
+        ),
+
+        // PREMIUM SECTION
+        React.createElement('div', { className: `rounded-xl border-2 transition-all relative overflow-hidden mb-6 ${isProUnlocked ? 'border-amber-400 bg-amber-50/50 p-6' : 'border-slate-200 bg-slate-50 p-6'}` },
+          !isProUnlocked && React.createElement('div', { className: 'absolute inset-0 z-10 backdrop-blur-[2px] bg-white/50 flex flex-col items-center justify-center text-center p-6' },
+            React.createElement('div', { className: 'w-12 h-12 bg-amber-100 rounded-full flex items-center justify-center mb-3 text-amber-600' },
+              React.createElement(Icon, { path: icons.lock, className: 'w-6 h-6' })
+            ),
+            React.createElement('h3', { className: 'text-lg font-bold text-slate-900 mb-2' }, 'Unlock Premium Intelligence'),
+            React.createElement('p', { className: 'text-sm text-slate-600 mb-5 max-w-xs' },
+              'Get competitive benchmarking and data-driven pricing experiments.'
+            ),
+            React.createElement('button', {
+              onClick: () => setIsProUnlocked(true),
+              className: 'px-6 py-2.5 bg-slate-900 hover:bg-slate-800 text-white rounded-lg font-medium text-sm transition-all flex items-center gap-2'
+            },
+              React.createElement(Icon, { path: icons.sparkles, className: 'w-4 h-4 text-amber-400' }),
+              'Unlock Pro Features (Demo)'
+            )
+          ),
+          React.createElement('div', { className: 'flex items-center gap-2 mb-5' },
+            React.createElement('div', { className: 'p-1.5 bg-amber-100 rounded text-amber-600' },
+              React.createElement(Icon, { path: icons.zap, className: 'w-4 h-4' })
+            ),
+            React.createElement('h3', { className: 'font-bold text-slate-900' }, 'Premium Add-ons'),
+            isProUnlocked && React.createElement('span', { className: 'text-xs font-semibold bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full ml-2' }, 'UNLOCKED')
+          ),
+          React.createElement('div', { className: `space-y-5 ${!isProUnlocked ? 'opacity-40 pointer-events-none' : ''}` },
+            // Competitors
+            React.createElement('div', null,
+              React.createElement('label', { className: 'block text-sm font-semibold text-slate-700 mb-2' }, 'Competitor Benchmarking (Max 3)'),
+              React.createElement('div', { className: 'space-y-2' },
+                formData.competitorUrls.map((url, i) =>
+                  React.createElement('div', { key: i, className: 'relative' },
+                    React.createElement('div', { className: 'absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none' },
+                      React.createElement(Icon, { path: icons.link, className: 'w-4 h-4 text-slate-400' })
+                    ),
+                    React.createElement('input', {
+                      type: 'text', value: url,
+                      onChange: e => updateCompetitor(i, e.target.value),
+                      placeholder: `Competitor URL #${i + 1}`,
+                      className: 'w-full pl-10 pr-4 py-2.5 rounded-lg border border-slate-300 bg-white text-sm focus:ring-2 focus:ring-amber-500 outline-none'
+                    })
+                  )
+                )
+              )
+            ),
+            // Experiment toggle
+            React.createElement('div', { className: 'flex items-start gap-3 p-4 bg-white rounded-lg border border-amber-200' },
+              React.createElement('div', { className: `mt-0.5 p-1 rounded-full ${formData.includeExperiment ? 'bg-green-100 text-green-600' : 'bg-slate-100 text-slate-400'}` },
+                React.createElement(Icon, { path: icons.flask, className: 'w-4 h-4' })
+              ),
+              React.createElement('div', { className: 'flex-1' },
+                React.createElement('div', { className: 'flex items-center justify-between mb-1' },
+                  React.createElement('label', { className: 'text-sm font-semibold text-slate-900' }, 'Generate Pricing Experiment'),
+                  React.createElement('div', {
+                    onClick: () => update('includeExperiment', !formData.includeExperiment),
+                    className: `w-11 h-6 rounded-full p-1 cursor-pointer transition-colors ${formData.includeExperiment ? 'bg-amber-500' : 'bg-slate-300'}`
+                  },
+                    React.createElement('div', { className: `bg-white w-4 h-4 rounded-full shadow-md transform transition-transform ${formData.includeExperiment ? 'translate-x-5' : ''}` })
+                  )
+                ),
+                React.createElement('p', { className: 'text-xs text-slate-500' }, 'Includes a hypothesis, A/B test setup, and projected impact analysis.')
+              )
+            )
+          )
+        ),
+
+        // SUBMIT
+        React.createElement('button', {
+          onClick: handleSubmit,
+          disabled: isLoading || !formData.url,
+          className: `w-full py-4 rounded-lg font-bold text-white flex items-center justify-center gap-2 transition-all
+            ${isLoading || !formData.url ? 'bg-slate-300 cursor-not-allowed' : 'bg-primary-600 hover:bg-primary-700 shadow-md hover:shadow-lg'}`
+        },
+          isLoading
+            ? [React.createElement(Icon, { key:'i', path: icons.loader, className: 'w-5 h-5 animate-spin' }), 'Running Strategic Analysis...']
+            : [React.createElement('span', { key:'t' }, 'Generate Audit Report'), React.createElement(Icon, { key:'i', path: icons.arrow, className: 'w-5 h-5' })]
+        )
+      ),
+
+      // FEATURE PILLS
+      React.createElement('div', { className: 'mt-14 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-3xl mx-auto text-center' },
+        [
+          { icon: icons.target, title: 'Strategic Alignment', desc: 'Ensure your pricing metric matches customer value.' },
+          { icon: icons.dollar, title: 'Monetization Efficiency', desc: 'Identify leaks in your packaging and tier structure.' },
+          { icon: icons.trend, title: 'Upsell Pathways', desc: 'Clear roadblocks to expansion revenue.' },
+        ].map(({ icon, title, desc }) =>
+          React.createElement('div', { key: title, className: 'p-4' },
+            React.createElement('div', { className: 'w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-sm mx-auto mb-3 text-primary-600' },
+              React.createElement(Icon, { path: icon, className: 'w-6 h-6' })
+            ),
+            React.createElement('h3', { className: 'font-semibold text-slate-900' }, title),
+            React.createElement('p', { className: 'text-sm text-slate-500 mt-1' }, desc)
+          )
+        )
+      )
+    )
+  );
+}
+
+// ─── REPORT ──────────────────────────────────────────────
+function Report({ result, formData, onReset }) {
+  const isPremium = formData.includeExperiment || formData.competitorUrls.some(u => u.length > 5);
+
+  return React.createElement('div', { className: 'min-h-screen bg-slate-50' },
+    // NAV
+    React.createElement('header', { className: 'bg-white border-b border-slate-200 sticky top-0 z-10' },
+      React.createElement('div', { className: 'max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between' },
+        React.createElement('div', { className: 'flex items-center gap-2' },
+          React.createElement('div', { className: 'bg-slate-900 p-1.5 rounded text-white' },
+            React.createElement(Icon, { path: icons.dollar, className: 'w-5 h-5' })
+          ),
+          React.createElement('span', { className: 'text-lg font-bold tracking-tight' },
+            'Pricing', React.createElement('span', { className: 'text-primary-600' }, 'Prophet')
+          )
+        ),
+        React.createElement('span', { className: 'text-xs text-slate-400 font-mono hidden sm:block' }, 'AI Pricing Auditor · by Stromi Lof')
+      )
+    ),
+
+    React.createElement('main', { className: 'max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 animate-fade-in' },
+      // HEADER
+      React.createElement('div', { className: 'bg-slate-900 text-white p-6 md:p-8 rounded-xl shadow-xl mb-8 border-t-4 border-primary-500' },
+        React.createElement('div', { className: 'flex flex-col md:flex-row justify-between items-start md:items-center gap-4' },
+          React.createElement('div', null,
+            React.createElement('div', { className: 'flex items-center gap-2 text-primary-400 mb-2 text-sm font-semibold uppercase tracking-wider' },
+              React.createElement(Icon, { path: icons.shield, className: 'w-4 h-4' }), 'Executive Summary'
+            ),
+            React.createElement('h1', { className: 'text-2xl md:text-3xl font-bold mb-2' }, 'Pricing Strategy Audit'),
+            React.createElement('p', { className: 'text-slate-400 text-sm' },
+              'Analysis for ', React.createElement('span', { className: 'text-white font-medium' }, formData.url)
+            )
+          ),
+          React.createElement('button', {
+            onClick: onReset,
+            className: 'px-4 py-2 bg-slate-700 hover:bg-slate-600 rounded-lg text-sm font-medium transition-colors flex items-center gap-2'
+          },
+            React.createElement(Icon, { path: icons.refresh, className: 'w-4 h-4' }), 'New Audit'
+          )
+        )
+      ),
+
+      // GRID
+      React.createElement('div', { className: 'grid grid-cols-1 lg:grid-cols-4 gap-8' },
+        // SIDEBAR
+        React.createElement('div', { className: 'lg:col-span-1 space-y-6' },
+          React.createElement('div', { className: 'bg-white p-6 rounded-xl shadow-sm border border-slate-200' },
+            React.createElement('h3', { className: 'text-xs font-bold text-slate-400 uppercase tracking-wider mb-4' }, 'Audit Parameters'),
+            React.createElement('div', { className: 'space-y-3' },
+              React.createElement('div', null,
+                React.createElement('span', { className: 'block text-xs text-slate-500' }, 'Target Segment'),
+                React.createElement('span', { className: 'block font-medium text-slate-900' }, formData.targetCustomer)
+              ),
+              React.createElement('div', null,
+                React.createElement('span', { className: 'block text-xs text-slate-500' }, 'Objective'),
+                React.createElement('span', { className: 'block font-medium text-slate-900' }, formData.objective)
+              ),
+              isPremium && React.createElement('div', { className: 'pt-3 mt-3 border-t border-slate-100' },
+                React.createElement('span', { className: 'block text-xs text-amber-600 font-bold uppercase mb-2' }, 'Premium Active'),
+                formData.includeExperiment && React.createElement('div', { className: 'flex items-center gap-2 text-xs text-slate-700 mb-1' },
+                  React.createElement('div', { className: 'w-1.5 h-1.5 rounded-full bg-green-500' }), 'Growth Experiment'
+                ),
+                formData.competitorUrls.some(u => u.length > 5) && React.createElement('div', { className: 'flex items-center gap-2 text-xs text-slate-700' },
+                  React.createElement('div', { className: 'w-1.5 h-1.5 rounded-full bg-blue-500' }), 'Competitor Benchmarking'
+                )
+              )
+            )
+          ),
+
+          result.sourceUrls && result.sourceUrls.length > 0 && React.createElement('div', { className: 'bg-white p-6 rounded-xl shadow-sm border border-slate-200' },
+            React.createElement('h3', { className: 'text-xs font-bold text-slate-400 uppercase tracking-wider mb-4 flex items-center gap-2' },
+              React.createElement(Icon, { path: icons.globe, className: 'w-3 h-3' }), 'Sources Verified'
+            ),
+            React.createElement('ul', { className: 'space-y-2' },
+              result.sourceUrls.map((url, i) =>
+                React.createElement('li', { key: i },
+                  React.createElement('a', { href: url, target: '_blank', rel: 'noopener noreferrer', className: 'text-xs text-primary-600 hover:underline flex items-start gap-1 break-all' },
+                    React.createElement(Icon, { path: icons.external, className: 'w-3 h-3 mt-0.5 flex-shrink-0' }),
+                    (() => { try { return new URL(url).hostname; } catch { return url; } })()
+                  )
+                )
+              )
+            )
+          )
+        ),
+
+        // REPORT
+        React.createElement('div', { className: 'lg:col-span-3' },
+          React.createElement('div', {
+            className: 'bg-white p-8 md:p-12 rounded-xl shadow-md border border-slate-200 min-h-96 md prose',
+            dangerouslySetInnerHTML: { __html: renderMarkdown(result.markdown) }
+          })
+        )
+      )
+    )
+  );
+}
+
+// ─── MOUNT ────────────────────────────────────────────────
+const root = createRoot(document.getElementById('root'));
+root.render(React.createElement(App));
+</script>
+</body>
+</html>
